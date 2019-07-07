@@ -7,7 +7,7 @@ package sistemadearchivos;
 
 /**
  *
- * @author matiassebastianparra
+ * @author mati_
  */
 public class Main {
 
