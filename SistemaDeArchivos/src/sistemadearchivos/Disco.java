@@ -20,7 +20,8 @@ import java.util.ArrayList;
 
 /**
  *
- * @author mati_
+ * @author MatiasParra
+ * @author ManuelGonzalez
  */
 public class Disco {
         
@@ -93,6 +94,10 @@ public class Disco {
               e2.printStackTrace();
            }
         }
+    }
+    
+    public Bloque getBloquePorIndice(int bloqueIndice) {
+        return bloques.get(bloqueIndice);
     }
     
     void formatearDisco(){
