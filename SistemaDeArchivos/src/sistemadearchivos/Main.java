@@ -29,6 +29,7 @@ public class Main {
         Directorio directorio = new Directorio();
         Disco disco =  new Disco(4);
         disco.setDirectorio(directorio);
+        FCB fcb = new FCB();
         
         while(true){
             
@@ -51,20 +52,19 @@ public class Main {
 
                 if(opcion>0 && opcion<10){
                    switch(opcion){
-                        case 1: Disco disco =  new Disco();
-                                disco.leerDisco();
+                        case 1: disco.formatearDisco();
                                 break;
                         case 2: System.out.print("Entró a create\n");
                                 break;
                         case 3: System.out.print("Entró a remove\n");
                                 break;
-                        case 4: abrirArchivo();
+                        case 4: abrirArchivo(directorio, fcb, disco);
                                 break;
                         case 5: System.out.print("Entró a read at\n");
                                 break;
                         case 6: System.out.print("Entró a write at\n");
                                 break;
-                        case 7: FCB fcb = new FCB();
+                        case 7: fcb.setDisco(disco);
                                 fcb.imprimirContenidoArchivo();
                                 break;
                         case 8: System.out.print("Entró a list\n");
@@ -89,21 +89,18 @@ public class Main {
      * no lo está, entonces va al directorio y lo abre a través de la función openFile.
      *     
      */
-    static public void abrirArchivo() {
+    static public void abrirArchivo(Directorio directorio, FCB fcb, Disco disco) {
         Scanner in = new Scanner(System.in);        
         System.out.print("Ingrese el nombre del archivo que quiere abrir: ");
         
         if(in.hasNextLine()){
-            
-            FCB fcb = new FCB();
-            Directorio directorio = new Directorio();
             
             if(fcb.getNombreArchivo() != null && fcb.getNombreArchivo().equals(in.toString())){
                 System.out.println("\nEl archivo está abierto.");  
             }else{
                 System.out.println("\nEl archivo no está abierto. Se buscará en el directorio");
                 
-                directorio.openFile(in.toString());
+                directorio.openFile(in.toString(), disco);
             }  
         }else{
             System.out.println("\nINGRESE UN NOMBRE VÁLIDO!!!\n");
