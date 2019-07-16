@@ -5,7 +5,11 @@
  */
 package sistemadearchivos;
 
+import static java.lang.Math.abs;
+import static java.lang.Math.ceil;
+import static java.lang.Math.round;
 import static java.lang.System.exit;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
@@ -30,8 +34,16 @@ public class Main {
         Disco disco =  new Disco();
         disco.setDirectorio(directorio);
         FCB fcb = new FCB();
-        
         disco.leerDisco();
+        int bloquesLibres = 0;
+        
+        for (int a=0; a<disco.getBloque().size(); a++){
+            if(!disco.getBloquePorIndice(a).isOcupado()){
+                bloquesLibres++;
+            }
+        }
+        
+        
         
         while(true){
             
@@ -58,7 +70,7 @@ public class Main {
                                 int numBloques = in.nextInt();
                                 disco.formatearDisco(numBloques);
                                 break;
-                        case 2: System.out.print("Entró a create\n");
+                        case 2: crearArchivo(directorio, disco, bloquesLibres);
                                 break;
                         case 3: System.out.print("Entró a remove\n");
                                 break;
@@ -71,7 +83,7 @@ public class Main {
                         case 7: fcb.setDisco(disco);
                                 fcb.imprimirContenidoArchivo();
                                 break;
-                        case 8: System.out.print("Entró a list\n");
+                        case 8: directorio.imprimirListaDirectorios();
                                 break;
                         case 9: exit(0);
                                 break;
@@ -106,6 +118,66 @@ public class Main {
                 
                 directorio.openFile(in.toString(), disco);
             }  
+        }else{
+            System.out.println("\nINGRESE UN NOMBRE VÁLIDO!!!\n");
+        }
+    }
+    
+    
+    /**
+     * Método crearArchivo pregunta al usuraio qué archivo desea crear.
+     * 
+     * Se pregunta por el nombre del archivo, y el tamaño de este en bytes. Se busca 
+     * si hay bloques disponibles en la cantidad suficiente para que concuerde con el tamaño ingresado 
+     * por el usuario más un bloque extra por el bloque índice.
+     * 
+     * @param directorio Objeto de tipo directorio, en donde se tendrán los nombres de los archivos y su bloque índice.
+     * @param disco Objeto de tipo disco, el cual representa la memoria secundaria del sistema y servirá para ver los bloques vacíos.
+     * @param bloquesLibres Objeto entero que muestra cuantos bloques vacíos existen en el sistema.
+     */
+    static public void crearArchivo(Directorio directorio, Disco disco, int bloquesLibres) {
+        Scanner in = new Scanner(System.in);        
+        System.out.print("Ingrese el nombre del archivo que quiere crear: ");
+        
+        if(in.hasNextLine()){
+            
+            String nombre = in.toString();
+            
+            Scanner on = new Scanner(System.in);        
+            System.out.print("Ingrese el tamaño del archivo en bytes: ");
+
+            if(on.hasNextInt()){
+
+                int size = on.nextInt();
+                int resto =(size%512);
+                int cantidadBloquesNecesarios = 0;
+                int contador = 0;
+                ArrayList<Integer> bloquesIndices = new ArrayList<Integer>();
+                if(resto == 0){
+                    cantidadBloquesNecesarios = ((size/512)+1);
+                }
+                else{
+                    cantidadBloquesNecesarios = ((size/512)+2);               
+                }
+                
+                if(bloquesLibres > cantidadBloquesNecesarios){
+                    for (int a=0; a<disco.getBloque().size(); a++){
+                        if(!disco.getBloquePorIndice(a).isOcupado()){
+                            if(contador < cantidadBloquesNecesarios){
+                                bloquesIndices.add(a);
+                            }
+                            else{
+                                disco.getBloquePorIndice(a).setIndice(bloquesIndices);
+                                directorio.agregarArchivo(nombre, a);
+                                break;
+                            }
+                        }
+                    }
+                }                
+            }else{
+                System.out.println("\nINGRESE UN NÚMERO VÁLIDO!!!\n");
+            }
+            
         }else{
             System.out.println("\nINGRESE UN NOMBRE VÁLIDO!!!\n");
         }

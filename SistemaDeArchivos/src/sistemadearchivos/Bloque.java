@@ -19,6 +19,7 @@ public class Bloque {
     private byte[] contenido;
     int identificador;
     ArrayList<Integer> indice;
+    boolean ocupado = false;
     
     public Bloque() {
         this.indice = new ArrayList<Integer>();
@@ -75,5 +76,13 @@ public class Bloque {
     public void setIndice(ArrayList<Integer> indice) {
         this.indice = indice;
     }    
+
+    public boolean isOcupado() {
+        return ocupado;
+    }
+
+    public void setOcupado(boolean ocupado) {
+        this.ocupado = ocupado;
+    }        
     
 }

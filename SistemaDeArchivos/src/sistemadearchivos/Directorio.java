@@ -37,7 +37,7 @@ public class Directorio {
         }
     }
     
-    void imprimirListaDirectorios(){
+    public void imprimirListaDirectorios(){
         for (String i : this.listaDirectorios.keySet()) {
             System.out.println("Nombre archivo: " + i + " Index Block: " + this.listaDirectorios.get(i));
         }
@@ -80,6 +80,12 @@ public class Directorio {
             this.fcb = new FCB(100, this.bloque.getIndice(), nombreArchivo);//CAMBIAR EL 100 POR EL TAMAÑO REAL DEL ARCHIVO
             System.out.println("\nEl archivo fue abierto exitosamente. \n");
         }  
+    }
+    
+    
+    public void agregarArchivo(String nombre, int indice){
+        this.listaDirectorios.put(nombre, indice);
+        System.out.println("\nEl archivo fue creado exitosamente. \n");
     }
     
 }
