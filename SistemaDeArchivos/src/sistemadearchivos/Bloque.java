@@ -21,7 +21,7 @@ public class Bloque {
     ArrayList<Integer> indice;
     
     public Bloque() {
-        
+        this.indice = new ArrayList<Integer>();
     }
     
     public Bloque(String palabra, int identificador) {

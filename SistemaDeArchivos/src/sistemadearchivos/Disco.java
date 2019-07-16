@@ -26,7 +26,7 @@ import java.util.ArrayList;
 public class Disco {
         
     ArrayList<Bloque> bloques;
-    private File archivoDeDisco;
+    private File archivoDeDisco = new File("DISCO.txt");
     private int numSectores;
     Directorio directorio;
 
@@ -36,7 +36,14 @@ public class Disco {
         this.archivoDeDisco = new File("DISCO.txt");
     }
     
+    public Disco(){
+        this.bloques = new ArrayList<Bloque>();
+        this.numSectores = 0;
+        this.archivoDeDisco = new File("DISCO.txt");
+    }
+    
     void leerDisco(){
+        this.numSectores = this.obtenerNumeroBloques();
         Scanner lector;
         
         try{
@@ -45,6 +52,8 @@ public class Disco {
             for (int i=0; i<numSectores && lector.hasNextLine(); i++) 
             {
                 if(i == 0){
+                    //Lee desde el archivo los datos del directorio y los almacena
+                    //en la clase directorio.
                     String linea = lector.nextLine();
                     String [] array = linea.split("/"); 
                 
@@ -53,9 +62,16 @@ public class Disco {
                     }
                 }
                 else{
+                    //Lee los datos de los sectores y los almacena en la lista de bloques
                     String linea = lector.nextLine();
-                    Bloque bloque = new Bloque(linea, i);
-                    this.bloques.add(bloque);
+                    
+                    if(linea.charAt(0) == '['){
+                        this.leerBloqueIndice(i, linea);
+                    }
+                    else{
+                        Bloque bloque = new Bloque(linea, i);
+                        this.bloques.add(bloque);
+                    }
                 }
             }                        
             lector.close();
@@ -64,6 +80,28 @@ public class Disco {
         {
             e.printStackTrace();
         }
+    }
+    
+    int obtenerNumeroBloques(){
+        int num = 0;
+        Scanner lector;
+        
+        try{
+            lector = new Scanner(this.archivoDeDisco);
+
+            while(lector.hasNextLine() == true) 
+            {
+                num++;
+                lector.nextLine();
+            }                        
+            lector.close();
+        } 
+        catch (FileNotFoundException e) 
+        {
+            e.printStackTrace();
+        }
+        
+        return num;
     }
     
     void guardarDatos(){
@@ -100,7 +138,8 @@ public class Disco {
         return bloques.get(bloqueIndice);
     }
     
-    void formatearDisco(){
+    void formatearDisco(int numBloques){
+        this.numSectores = numBloques;
         FileWriter fichero = null;
         PrintWriter pw = null;
         
@@ -141,6 +180,22 @@ public class Disco {
             directorio = directorio + i +"-"+this.directorio.listaDirectorios.get(i)+"/";
         }
         return directorio;
+    }
+    
+    void leerBloqueIndice(int idBloque, String indice){
+        Bloque bloque = new Bloque();
+        bloque.setPalabra(indice);
+        bloque.setIdentificador(idBloque);
+        
+        indice = indice.substring(1, indice.length()-1);
+        String [] array = indice.split("->");
+        
+        for(String s: array){
+            int index = Integer.parseInt(s);
+            bloque.indice.add(index);
+        }
+        
+        System.out.println(bloque.indice.toString());
     }
 
     public ArrayList<Bloque> getBloque() {
