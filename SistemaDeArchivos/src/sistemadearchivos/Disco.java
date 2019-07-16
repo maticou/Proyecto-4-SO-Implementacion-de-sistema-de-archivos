@@ -91,6 +91,10 @@ public class Disco {
            }
         }
     }
+    
+    public Bloque getBloquePorIndice(int bloqueIndice) {
+        return bloques.get(bloqueIndice);
+    }
 
     public ArrayList<Bloque> getBloque() {
         return bloques;

@@ -14,11 +14,16 @@ import java.util.ArrayList;
 public class FCB {
     
     int archivoSize;
-    ArrayList<Bloque> listaBloques = new ArrayList<Bloque>();
+    ArrayList<Integer> listaBloques;
     String nombreArchivo;
+    
+    public FCB() {
+        
+    }
 
-    public FCB(int archivoSize, String nombreArchivo) {
+    public FCB(int archivoSize, ArrayList<Integer> listaBloques, String nombreArchivo) {
         this.archivoSize = archivoSize;
+        this.listaBloques = listaBloques;
         this.nombreArchivo = nombreArchivo;
     }
 
@@ -30,14 +35,6 @@ public class FCB {
         this.archivoSize = archivoSize;
     }
 
-    public ArrayList<Bloque> getListaBloques() {
-        return listaBloques;
-    }
-
-    public void setListaBloques(ArrayList<Bloque> listaBloques) {
-        this.listaBloques = listaBloques;
-    }
-
     public String getNombreArchivo() {
         return nombreArchivo;
     }
@@ -46,5 +43,11 @@ public class FCB {
         this.nombreArchivo = nombreArchivo;
     }
 
-    
+    public ArrayList<Integer> getListaBloques() {
+        return listaBloques;
+    }
+
+    public void setListaBloques(ArrayList<Integer> listaBloques) {
+        this.listaBloques = listaBloques;
+    }    
 }
