@@ -15,17 +15,36 @@ import java.util.Scanner;
  */
 public class Directorio {
     
-    HashMap<String, Integer> listaDirectorios = new HashMap<String, Integer>();
-    Disco disco = new Disco();
-    Bloque bloque = new Bloque();
+    HashMap<String, Integer> listaDirectorios;
+    Bloque bloque;
     FCB fcb;
 
     public Directorio() {
-        
+        this.listaDirectorios = new HashMap<String, Integer>();
     }
     
-    public Directorio(HashMap<String, Integer> listaDirectorios) {
-        this.listaDirectorios = listaDirectorios;
+    void agregarDirectorioDisco(String directorio){
+        String [] array = directorio.split("-");
+        
+        if(array.length < 2){
+            System.out.println("El directorio esta vacio.");
+        }
+        else{
+            String nombreArchivo = array[0];
+            int bloqueIndice = Integer.parseInt(array[1]);	
+        
+            this.listaDirectorios.put(nombreArchivo, bloqueIndice);
+        }
+    }
+    
+    void imprimirListaDirectorios(){
+        for (String i : this.listaDirectorios.keySet()) {
+            System.out.println("Nombre archivo: " + i + " Index Block: " + this.listaDirectorios.get(i));
+        }
+    }
+    
+    void eliminarDirectorio(){
+        this.listaDirectorios.clear();
     }
 
     public HashMap<String, Integer> getListaDirectorios() {
@@ -44,7 +63,7 @@ public class Directorio {
      * 
      * @param nombreArchivo String que almacena el nombre del archivo a buscar y abrir.
      */
-    public void openFile(String nombreArchivo) {
+    public void openFile(String nombreArchivo, Disco disco) {
 
         if(this.listaDirectorios.get(nombreArchivo) == null){
             System.out.println("\nEL ARCHIVO NO EXISTE O SU NOMBRE FUE ESCRITO INCORRECTAMENTE. \n");
@@ -56,7 +75,7 @@ public class Directorio {
             System.out.println("El bloque índice es: " + bloqueIndice);
             System.out.println("");
             
-            this.bloque = this.disco.getBloquePorIndice(bloqueIndice);
+            this.bloque = disco.getBloquePorIndice(bloqueIndice);
             
             this.fcb = new FCB(100, this.bloque.getIndice(), nombreArchivo);//CAMBIAR EL 100 POR EL TAMAÑO REAL DEL ARCHIVO
             System.out.println("\nEl archivo fue abierto exitosamente. \n");

@@ -21,8 +21,8 @@ public class FCB {
     int archivoSize;
     ArrayList<Integer> listaBloques;
     String nombreArchivo;
-    Disco disco = new Disco();
-    Bloque bloque = new Bloque();
+    Disco disco;
+    Bloque bloque;
     
     public FCB() {
         
@@ -34,6 +34,14 @@ public class FCB {
         this.nombreArchivo = nombreArchivo;
     }
 
+    public Disco getDisco() {
+        return disco;
+    }
+
+    public void setDisco(Disco disco) {
+        this.disco = disco;
+    }   
+    
     public int getArchivoSize() {
         return archivoSize;
     }
@@ -74,7 +82,7 @@ public class FCB {
         
             for(int i=0; i<this.listaBloques.size(); i++){
                 this.bloque = this.disco.getBloquePorIndice(this.listaBloques.get(i));
-                System.out.println(this.bloque.getPalabra() + "\n");
+                System.out.println(this.disco.getBloquePorIndice(this.listaBloques.get(i)).getPalabra() + "\n");
             }
         }        
     }
