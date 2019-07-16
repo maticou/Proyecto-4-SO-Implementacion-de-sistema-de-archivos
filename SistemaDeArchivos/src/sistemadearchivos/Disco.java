@@ -20,7 +20,8 @@ import java.util.ArrayList;
 
 /**
  *
- * @author mati_
+ * @author MatiasParra
+ * @author ManuelGonzalez
  */
 public class Disco {
         

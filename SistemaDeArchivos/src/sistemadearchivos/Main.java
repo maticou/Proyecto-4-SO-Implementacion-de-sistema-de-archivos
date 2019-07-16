@@ -9,13 +9,15 @@ import static java.lang.System.exit;
 import java.util.Scanner;
 
 /**
- *
- * @author mati_
+ *Clase Main que se encarga de mostrar el menú de opciones e inicializar las funcionalidades.
+ * 
+ * @author MatiasParra
+ * @author ManuelGonzalez
  */
 public class Main {
 
     /**
-     * Clase Main que se encarga de mostrar el menú de opciones e inicializar las funcionalidades
+     * Método Main que se encarga de mostrar el menú de opciones e inicializar las funcionalidades.
      * 
      * Utiliza un simple scanner para leer la opción del usuario, después verrifica con un switch-
      * Case la opción elegida. Si la opción es incorrecta, el mení se dezplegará de nuevo. Para 
@@ -38,8 +40,8 @@ public class Main {
             System.out.print("7.- Print file \n");
             System.out.print("8.- List \n");
             System.out.print("9.- Salir \n");
-            System.out.print("\n");
-            System.out.print("Ingrese qué tipo de acción desea hacer: ");
+
+            System.out.print("\nIngrese qué tipo de acción desea hacer: ");
             if(in.hasNextInt()){
 
                 int opcion = in.nextInt();  
@@ -59,7 +61,8 @@ public class Main {
                                 break;
                         case 6: System.out.print("Entró a write at\n");
                                 break;
-                        case 7: System.out.print("Entró a print file\n");
+                        case 7: FCB fcb = new FCB();
+                                fcb.imprimirContenidoArchivo();
                                 break;
                         case 8: System.out.print("Entró a list\n");
                                 break;
@@ -68,14 +71,10 @@ public class Main {
                     } 
                     System.out.println(""); 
                 }else{
-                    System.out.println("");
-                    System.out.println("INGRESE UN NÚMERO VÁLIDO!!!");
-                    System.out.println("");
+                    System.out.println("\nINGRESE UN NÚMERO VÁLIDO!!!\n");
                 }
             }else{
-                System.out.println("");
-                System.out.println("INGRESE UN NÚMERO VÁLIDO!!!");
-                System.out.println("");
+                System.out.println("\nINGRESE UN NÚMERO VÁLIDO!!!\n");
             }
         }    
     }
@@ -97,18 +96,14 @@ public class Main {
             Directorio directorio = new Directorio();
             
             if(fcb.getNombreArchivo() != null && fcb.getNombreArchivo().equals(in.toString())){
-                System.out.println("El archivo está abierto.");  
-                //Aquí se hace algo más? o es solo abir?
+                System.out.println("\nEl archivo está abierto.");  
             }else{
-                System.out.println("");
-                System.out.println("El archivo no está abierto. Se buscará en el directorio");
+                System.out.println("\nEl archivo no está abierto. Se buscará en el directorio");
                 
                 directorio.openFile(in.toString());
             }  
         }else{
-            System.out.println("");
-            System.out.println("INGRESE UN NOMBRE VÁLIDO!!!");
-            System.out.println("");
+            System.out.println("\nINGRESE UN NOMBRE VÁLIDO!!!\n");
         }
     }
 }

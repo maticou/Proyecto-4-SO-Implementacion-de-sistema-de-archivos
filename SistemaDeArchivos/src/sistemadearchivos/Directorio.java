@@ -10,7 +10,8 @@ import java.util.Scanner;
 
 /**
  *
- * @author mati_
+ * @author MatiasParra
+ * @author ManuelGonzalez
  */
 public class Directorio {
     
@@ -35,13 +36,20 @@ public class Directorio {
         this.listaDirectorios = listaDirectorios;
     }
 
+    /**
+     * Función que abre el archivo.
+     * 
+     * Primero pregunta si el archivo está abierto en el FCB, de lo contrario, lo abre 
+     * y almacena en el FCB.
+     * 
+     * @param nombreArchivo String que almacena el nombre del archivo a buscar y abrir.
+     */
     public void openFile(String nombreArchivo) {
 
         if(this.listaDirectorios.get(nombreArchivo) == null){
-            System.out.println("");
-            System.out.println("EL ARCHIVO NO EXISTE O SU NOMBRE FUE ESCRITO INCORRECTAMENTE. \n");
+            System.out.println("\nEL ARCHIVO NO EXISTE O SU NOMBRE FUE ESCRITO INCORRECTAMENTE. \n");
         }else{
-            System.out.println("El archivo fue encontrado, ahora se abrirá en el FCB. \n");
+            System.out.println("\nEl archivo fue encontrado, ahora se abrirá en el FCB. \n");
             
             int bloqueIndice = this.listaDirectorios.get(nombreArchivo);  
             
@@ -51,7 +59,7 @@ public class Directorio {
             this.bloque = this.disco.getBloquePorIndice(bloqueIndice);
             
             this.fcb = new FCB(100, this.bloque.getIndice(), nombreArchivo);//CAMBIAR EL 100 POR EL TAMAÑO REAL DEL ARCHIVO
-            System.out.println("El archivo fue abierto exitosamente. \n");
+            System.out.println("\nEl archivo fue abierto exitosamente. \n");
         }  
     }
     
