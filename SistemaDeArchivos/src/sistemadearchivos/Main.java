@@ -27,9 +27,11 @@ public class Main {
      */
     public static void main(String[] args) {
         Directorio directorio = new Directorio();
-        Disco disco =  new Disco(4);
+        Disco disco =  new Disco();
         disco.setDirectorio(directorio);
         FCB fcb = new FCB();
+        
+        disco.leerDisco();
         
         while(true){
             
@@ -52,7 +54,9 @@ public class Main {
 
                 if(opcion>0 && opcion<10){
                    switch(opcion){
-                        case 1: disco.formatearDisco();
+                        case 1: System.out.print("Ingrese el numero de sectores que tendra el nuevo disco \n");
+                                int numBloques = in.nextInt();
+                                disco.formatearDisco(numBloques);
                                 break;
                         case 2: System.out.print("Entró a create\n");
                                 break;
