@@ -27,10 +27,11 @@ public class Disco {
     ArrayList<Bloque> bloques;
     private File archivoDeDisco;
     private int numSectores;
+    Directorio directorio;
 
-    public Disco() {
+    public Disco(int numSectores) {
         this.bloques = new ArrayList<Bloque>();
-        this.numSectores = 4;
+        this.numSectores = numSectores;
         this.archivoDeDisco = new File("DISCO.txt");
     }
     
@@ -42,18 +43,26 @@ public class Disco {
 
             for (int i=0; i<numSectores && lector.hasNextLine(); i++) 
             {
-                String linea = lector.nextLine();
-                Bloque bloque = new Bloque(linea, i);
-                this.bloques.add(bloque);
-
+                if(i == 0){
+                    String linea = lector.nextLine();
+                    String [] array = linea.split("/"); 
+                
+                    for(String s: array){
+                        this.directorio.agregarDirectorioDisco(s);
+                    }
+                }
+                else{
+                    String linea = lector.nextLine();
+                    Bloque bloque = new Bloque(linea, i);
+                    this.bloques.add(bloque);
+                }
             }                        
             lector.close();
-            System.out.println(bloques);
         } 
-           catch (FileNotFoundException e) 
-           {
-               e.printStackTrace();
-           }
+        catch (FileNotFoundException e) 
+        {
+            e.printStackTrace();
+        }
     }
     
     void guardarDatos(){
@@ -67,29 +76,66 @@ public class Disco {
             
             for(int i=0; i<this.numSectores; i++)
             {
-                pw.println("00000000000000000000000000000000000000000"
-                        + "0000000000000000000000000000000000000000000"
-                        + "0000000000000000000000000000000000000000000"
-                        + "0000000000000000000000000000000000000000000"
-                        + "0000000000000000000000000000000000000000000"
-                        + "0000000000000000000000000000000000000000000"
-                        + "0000000000000000000000000000000000000000000"
-                        + "0000000000000000000000000000000000000000000"
-                        + "0000000000000000000000000000000000000000000"
-                        + "0000000000000000000000000000000000000000000"
-                        + "0000000000000000000000000000000000000000000"
-                        + "00000000000000000000000000000000000000000");               
+                if(i == 0){
+                    pw.println(this.guardarDirectorio());
+                }
+                else{
+                    pw.println(this.bloques.get(i).getPalabra()); 
+                }              
             }
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
            try {  
-           if (null != fichero)
-              fichero.close();
+                if (null != fichero)
+                   fichero.close();
            } catch (Exception e2) {
               e2.printStackTrace();
            }
         }
+    }
+    
+    void formatearDisco(){
+        FileWriter fichero = null;
+        PrintWriter pw = null;
+        
+        try
+        {
+            fichero = new FileWriter(this.archivoDeDisco);
+            pw = new PrintWriter(fichero);
+            
+            for(int i=0; i<this.numSectores; i++)
+            {
+                if(i == 0){
+                    pw.println(this.guardarDirectorio());
+                }
+                else{
+                    pw.println(" "); 
+                }              
+            }
+            this.directorio.eliminarDirectorio();
+            
+            System.out.println("Se ha formateado el disco");
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+           try {  
+                if (null != fichero){
+                    fichero.close();
+                }
+           } catch (Exception e2) {
+              e2.printStackTrace();
+           }
+        }
+    }
+    
+    String guardarDirectorio(){
+        String directorio = "";
+        
+        for (String i : this.directorio.listaDirectorios.keySet()) {
+            directorio = directorio + i +"-"+this.directorio.listaDirectorios.get(i)+"/";
+        }
+        return directorio;
     }
 
     public ArrayList<Bloque> getBloque() {
@@ -98,6 +144,10 @@ public class Disco {
 
     public void setBloques(ArrayList<Bloque> bloques) {
         this.bloques = bloques;
+    }
+    
+    public void setDirectorio(Directorio directorio){
+        this.directorio = directorio;
     }
    
 }

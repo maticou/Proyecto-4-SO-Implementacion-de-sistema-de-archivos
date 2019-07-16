@@ -13,10 +13,34 @@ import java.util.HashMap;
  */
 public class Directorio {
     
-    HashMap<String, Integer> listaDirectorios = new HashMap<String, Integer>();
+    HashMap<String, Integer> listaDirectorios;
 
-    public Directorio(HashMap<String, Integer> listaDirectorios) {
-        this.listaDirectorios = listaDirectorios;
+    public Directorio() {
+        this.listaDirectorios = new HashMap<String, Integer>();
+    }
+    
+    void agregarDirectorioDisco(String directorio){
+        String [] array = directorio.split("-");
+        
+        if(array.length < 2){
+            System.out.println("El directorio esta vacio.");
+        }
+        else{
+            String nombreArchivo = array[0];
+            int bloqueIndice = Integer.parseInt(array[1]);	
+        
+            this.listaDirectorios.put(nombreArchivo, bloqueIndice);
+        }
+    }
+    
+    void imprimirListaDirectorios(){
+        for (String i : this.listaDirectorios.keySet()) {
+            System.out.println("Nombre archivo: " + i + " Index Block: " + this.listaDirectorios.get(i));
+        }
+    }
+    
+    void eliminarDirectorio(){
+        this.listaDirectorios.clear();
     }
 
     public HashMap<String, Integer> getListaDirectorios() {

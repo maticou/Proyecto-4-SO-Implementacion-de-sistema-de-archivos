@@ -15,8 +15,13 @@ public class Main {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        Disco disco =  new Disco();
+        Directorio directorio = new Directorio();
+        Disco disco =  new Disco(4);
+        disco.setDirectorio(directorio);
         disco.leerDisco();
+        //disco.formatearDisco();
+        //disco.obtenerDirectorio();
+        //disco.guardarDatos();
         // TODO code application logic here
     }
     
