@@ -111,12 +111,12 @@ public class Main {
         
         if(in.hasNextLine()){
             
-            if(fcb.getNombreArchivo() != null && fcb.getNombreArchivo().equals(in.toString())){
+            if(fcb.getNombreArchivo() != null && fcb.getNombreArchivo().equals(in.nextLine())){
                 System.out.println("\nEl archivo está abierto.");  
             }else{
                 System.out.println("\nEl archivo no está abierto. Se buscará en el directorio");
                 
-                directorio.openFile(in.toString(), disco);
+                directorio.openFile(in.nextLine(), disco);
             }  
         }else{
             System.out.println("\nINGRESE UN NOMBRE VÁLIDO!!!\n");
@@ -141,8 +141,7 @@ public class Main {
         
         if(in.hasNextLine()){
             
-            String nombre = in.toString();
-            
+            String nombre = in.nextLine();
             Scanner on = new Scanner(System.in);        
             System.out.print("Ingrese el tamaño del archivo en bytes: ");
 
@@ -151,7 +150,7 @@ public class Main {
                 int size = on.nextInt();
                 int resto =(size%512);
                 int cantidadBloquesNecesarios = 0;
-                int contador = 0;
+                int contador = 1;
                 ArrayList<Integer> bloquesIndices = new ArrayList<Integer>();
                 if(resto == 0){
                     cantidadBloquesNecesarios = ((size/512)+1);
@@ -159,21 +158,29 @@ public class Main {
                 else{
                     cantidadBloquesNecesarios = ((size/512)+2);               
                 }
-                
-                if(bloquesLibres > cantidadBloquesNecesarios){
+                System.out.print("bloquesLibres: "+bloquesLibres);
+                String palabra = "";
+                if(bloquesLibres > cantidadBloquesNecesarios){                    
                     for (int a=0; a<disco.getBloque().size(); a++){
                         if(!disco.getBloquePorIndice(a).isOcupado()){
                             if(contador < cantidadBloquesNecesarios){
+                                System.out.print("a: "+a);
                                 bloquesIndices.add(a);
+                                palabra += a;
+                                disco.getBloquePorIndice(a).setOcupado(true);
+                                contador++;
                             }
                             else{
                                 disco.getBloquePorIndice(a).setIndice(bloquesIndices);
+                                disco.getBloquePorIndice(a).setOcupado(true);  
+                                disco.getBloquePorIndice(a).setPalabra(palabra);
                                 directorio.agregarArchivo(nombre, a);
+                                disco.guardarDatos();
                                 break;
                             }
                         }
                     }
-                }                
+                }                      
             }else{
                 System.out.println("\nINGRESE UN NÚMERO VÁLIDO!!!\n");
             }
