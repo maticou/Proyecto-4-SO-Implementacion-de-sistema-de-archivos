@@ -16,7 +16,7 @@ import java.util.Scanner;
 public class Directorio {
     
     HashMap<String, Integer> listaDirectorios;
-    Bloque bloque = new Bloque();
+    Bloque bloque;
     FCB fcb;
 
     public Directorio() {
