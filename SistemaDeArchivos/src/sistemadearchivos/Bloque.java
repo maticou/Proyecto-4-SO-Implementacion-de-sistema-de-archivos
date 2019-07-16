@@ -12,11 +12,12 @@ package sistemadearchivos;
 public class Bloque {
     
     int size = 512;
-    String name;
+    String palabra;
+    private byte[] contenido;
     int identificador;
 
-    public Bloque(String name, int identificador) {
-        this.name = name;
+    public Bloque(String palabra, int identificador) {
+        this.palabra = palabra;
         this.identificador = identificador;
     }
 
@@ -29,11 +30,11 @@ public class Bloque {
     }
 
     public String getName() {
-        return name;
+        return palabra;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setName(String palabra) {
+        this.palabra = palabra;
     }
 
     public int getIdentificador() {
