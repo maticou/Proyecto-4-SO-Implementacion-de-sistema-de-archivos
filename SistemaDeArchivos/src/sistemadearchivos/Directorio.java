@@ -5,7 +5,7 @@
  */
 package sistemadearchivos;
 
-import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  *
@@ -13,28 +13,18 @@ import java.util.ArrayList;
  */
 public class Directorio {
     
-    String archivoNombre;    
-    ArrayList<Bloque> bloques;
+    HashMap<String, Integer> listaDirectorios = new HashMap<String, Integer>();
 
-    public Directorio(String archivoNombre, ArrayList<Bloque> bloques) {
-        this.archivoNombre = archivoNombre;
-        this.bloques = bloques;
+    public Directorio(HashMap<String, Integer> listaDirectorios) {
+        this.listaDirectorios = listaDirectorios;
     }
 
-    public String getArchivoNombre() {
-        return archivoNombre;
+    public HashMap<String, Integer> getListaDirectorios() {
+        return listaDirectorios;
     }
 
-    public void setArchivoNombre(String archivoNombre) {
-        this.archivoNombre = archivoNombre;
+    public void setListaDirectorios(HashMap<String, Integer> listaDirectorios) {
+        this.listaDirectorios = listaDirectorios;
     }
-
-    public ArrayList<Bloque> getBloques() {
-        return bloques;
-    }
-
-    public void setBloques(ArrayList<Bloque> bloques) {
-        this.bloques = bloques;
-    }
- 
+    
 }

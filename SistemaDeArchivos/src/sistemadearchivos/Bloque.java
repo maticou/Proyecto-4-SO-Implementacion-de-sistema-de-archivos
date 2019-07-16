@@ -5,6 +5,8 @@
  */
 package sistemadearchivos;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author mati_
@@ -15,10 +17,22 @@ public class Bloque {
     String palabra;
     private byte[] contenido;
     int identificador;
-
+    ArrayList<Integer> indice;
+    
+    public Bloque() {
+        
+    }
+    
     public Bloque(String palabra, int identificador) {
         this.palabra = palabra;
         this.identificador = identificador;
+    }
+
+    public Bloque(String palabra, byte[] contenido, int identificador, ArrayList<Integer> indice) {
+        this.palabra = palabra;
+        this.contenido = contenido;
+        this.identificador = identificador;
+        this.indice = indice;
     }
 
     public int getSize() {
@@ -29,12 +43,20 @@ public class Bloque {
         this.size = size;
     }
 
-    public String getName() {
+    public String getPalabra() {
         return palabra;
     }
 
-    public void setName(String palabra) {
+    public void setPalabra(String palabra) {
         this.palabra = palabra;
+    }
+
+    public byte[] getContenido() {
+        return contenido;
+    }
+
+    public void setContenido(byte[] contenido) {
+        this.contenido = contenido;
     }
 
     public int getIdentificador() {
@@ -44,7 +66,13 @@ public class Bloque {
     public void setIdentificador(int identificador) {
         this.identificador = identificador;
     }
-    
-       
+
+    public ArrayList<Integer> getIndice() {
+        return indice;
+    }
+
+    public void setIndice(ArrayList<Integer> indice) {
+        this.indice = indice;
+    }    
     
 }

@@ -5,6 +5,8 @@
  */
 package sistemadearchivos;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author mati_
@@ -12,17 +14,12 @@ package sistemadearchivos;
 public class FCB {
     
     int archivoSize;
-    int posicionInicial;
-    int posicionFinal;
-    String nombreDirectorio;
-    String fechaCreacion;
+    ArrayList<Bloque> listaBloques = new ArrayList<Bloque>();
+    String nombreArchivo;
 
-    public FCB(int archivoSize, int posicionInicial, int posicionFinal, String nombreDirectorio, String fechaCreacion) {
+    public FCB(int archivoSize, String nombreArchivo) {
         this.archivoSize = archivoSize;
-        this.posicionInicial = posicionInicial;
-        this.posicionFinal = posicionFinal;
-        this.nombreDirectorio = nombreDirectorio;
-        this.fechaCreacion = fechaCreacion;
+        this.nombreArchivo = nombreArchivo;
     }
 
     public int getArchivoSize() {
@@ -33,38 +30,21 @@ public class FCB {
         this.archivoSize = archivoSize;
     }
 
-    public int getPosicionInicial() {
-        return posicionInicial;
+    public ArrayList<Bloque> getListaBloques() {
+        return listaBloques;
     }
 
-    public void setPosicionInicial(int posicionInicial) {
-        this.posicionInicial = posicionInicial;
+    public void setListaBloques(ArrayList<Bloque> listaBloques) {
+        this.listaBloques = listaBloques;
     }
 
-    public int getPosicionFinal() {
-        return posicionFinal;
+    public String getNombreArchivo() {
+        return nombreArchivo;
     }
 
-    public void setPosicionFinal(int posicionFinal) {
-        this.posicionFinal = posicionFinal;
+    public void setNombreArchivo(String nombreArchivo) {
+        this.nombreArchivo = nombreArchivo;
     }
 
-    public String getNombreDirectorio() {
-        return nombreDirectorio;
-    }
-
-    public void setNombreDirectorio(String nombreDirectorio) {
-        this.nombreDirectorio = nombreDirectorio;
-    }
-
-    public String getFechaCreacion() {
-        return fechaCreacion;
-    }
-
-    public void setFechaCreacion(String fechaCreacion) {
-        this.fechaCreacion = fechaCreacion;
-    }
-
-   
     
 }
