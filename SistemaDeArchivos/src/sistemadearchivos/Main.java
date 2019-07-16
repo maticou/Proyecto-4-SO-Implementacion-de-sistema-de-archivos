@@ -26,6 +26,9 @@ public class Main {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
+        Directorio directorio = new Directorio();
+        Disco disco =  new Disco(4);
+        disco.setDirectorio(directorio);
         
         while(true){
             
