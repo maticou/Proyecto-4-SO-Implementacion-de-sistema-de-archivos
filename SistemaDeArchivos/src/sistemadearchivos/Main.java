@@ -5,9 +5,6 @@
  */
 package sistemadearchivos;
 
-import static java.lang.Math.abs;
-import static java.lang.Math.ceil;
-import static java.lang.Math.round;
 import static java.lang.System.exit;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -74,7 +71,10 @@ public class Main {
                                 break;
                         case 4: fcb = abrirArchivo(directorio, fcb, disco);
                                 break;
-                        case 5: System.out.print("Entró a read at\n");
+                        case 5: System.out.print("Ingrese el numero de sectores que desea leer: \n");
+                                int indiceArrchivo = in.nextInt();
+                                fcb.setDisco(disco);
+                                fcb.imprimirContenidoArchivoHasta(indiceArrchivo);
                                 break;
                         case 6: System.out.print("Entró a write at\n");
                                 break;
@@ -114,7 +114,7 @@ public class Main {
                 return fcb;
             }else{
                 System.out.println("\nEl archivo no está abierto. Se buscará en el directorio");
-                
+                //SE CAE AQUÍIIIIII
                 fcb = directorio.openFile(in.nextLine(), disco);
                 return fcb;
             }  

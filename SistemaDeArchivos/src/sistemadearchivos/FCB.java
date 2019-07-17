@@ -91,4 +91,30 @@ public class FCB {
             }
         }        
     }
+    
+    
+    /**
+     * Método imprimirContenidoArchivoHasta muestra el contenido de un archivo abierto hasta 
+     * la posición que elija el usuario.
+     * @param posicion Limite hasta donde quiere leer el usuario
+     */
+    public void imprimirContenidoArchivoHasta(int posicion){
+        
+        if(this.getNombreArchivo() == null){
+            System.out.println("\nNo hay archivo abierto, debe abrir uno primero. \n");
+        }
+        else{
+            if(posicion <= this.listaBloques.size() && posicion > 0){
+                System.out.println("\nEl contenido del archivo " + this.getNombreArchivo() + " es:  \n");
+            
+                for(int i=0; i<posicion; i++){
+                    this.bloque = this.disco.getBloquePorIndice(this.listaBloques.get(i)-1);
+                    System.out.println(this.disco.getBloquePorIndice(this.listaBloques.get(i)-1).getPalabra() + "\n");
+                }
+            }
+            else{
+                System.out.println("\nEl número que ingresó es muy grande o muy pequeño. \n");
+            }            
+        }        
+    }
 }
