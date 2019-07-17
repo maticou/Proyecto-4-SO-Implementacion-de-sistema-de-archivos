@@ -254,6 +254,26 @@ public class Disco {
         
         System.out.println(bloque.indice.toString());
     }
+    
+    void eliminarArchivo(String nombre){
+        int index = this.directorio.listaDirectorios.get(nombre);
+        
+        ArrayList<Integer> indices = this.getBloquePorIndice(index-1).getIndice();
+        
+        for(Integer i : indices){
+            if(i != -1){
+                this.bloques.get(i-1).liberarBloque();
+            }
+            else{
+                break;
+            }
+        }
+        
+        this.bloques.get(index-1).liberarBloque();
+        this.directorio.eliminarArchivo(nombre);
+        this.guardarDatos();
+        System.out.println("Se ha eliminado correctamente el archivo.");
+    }
 
     public ArrayList<Bloque> getBloque() {
         return bloques;

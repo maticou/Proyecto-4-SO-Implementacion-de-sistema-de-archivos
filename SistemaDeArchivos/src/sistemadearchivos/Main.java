@@ -67,7 +67,9 @@ public class Main {
                                 break;
                         case 2: crearArchivo(directorio, disco, bloquesLibres);
                                 break;
-                        case 3: System.out.print("Entró a remove\n");
+                        case 3: System.out.print("Ingrese el nombre del archivo que desea eliminar: \n");
+                                String nombreArchivo = in.nextLine();
+                                disco.eliminarArchivo(nombreArchivo);
                                 break;
                         case 4: fcb = abrirArchivo(directorio, fcb, disco);
                                 break;
