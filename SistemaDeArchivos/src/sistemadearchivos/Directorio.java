@@ -123,4 +123,8 @@ public class Directorio {
         }        
         return contenido.length();
     }
+    
+    void eliminarArchivo(String nombre){
+        this.listaDirectorios.remove(nombre);
+    }
 }

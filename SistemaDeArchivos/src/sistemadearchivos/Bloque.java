@@ -38,6 +38,12 @@ public class Bloque {
         this.identificador = identificador;
         this.indice = indice;
     }
+    
+    void liberarBloque(){
+        this.indice.clear();
+        this.palabra = " ";
+        this.ocupado = false;
+    }
 
     public int getSize() {
         return size;
