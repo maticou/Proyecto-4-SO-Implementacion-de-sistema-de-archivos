@@ -77,7 +77,7 @@ public class Directorio {
      * @param nombreArchivo String que almacena el nombre del archivo a buscar y abrir.
      */
     public FCB openFile(String nombreArchivo, Disco disco) {
-
+        System.out.println("\nthis.listaDirectorios.get(nombreArchivo) "+this.listaDirectorios.get(nombreArchivo));
         if(this.listaDirectorios.get(nombreArchivo) == null){
             System.out.println("\nEL ARCHIVO NO EXISTE O SU NOMBRE FUE ESCRITO INCORRECTAMENTE. \n");
             return new FCB();
@@ -87,11 +87,11 @@ public class Directorio {
             int bloqueIndice = this.listaDirectorios.get(nombreArchivo);  
             
             System.out.println("El bloque índice es: " + bloqueIndice);
-            System.out.println("");
             
             this.bloque = disco.getBloquePorIndice(bloqueIndice);
             
-            this.fcb = new FCB(tamanoArchivo(nombreArchivo, disco), this.bloque.getIndice(), nombreArchivo);//CAMBIAR EL 100 POR EL TAMAÑO REAL DEL ARCHIVO
+            this.fcb = new FCB(tamanoArchivo(nombreArchivo, disco), this.bloque.getIndice(), nombreArchivo);
+            
             System.out.println("\nEl archivo fue abierto exitosamente. \n");
             return this.fcb;
         }  
