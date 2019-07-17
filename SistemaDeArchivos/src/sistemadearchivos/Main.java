@@ -61,16 +61,30 @@ public class Main {
 
                 if(opcion>0 && opcion<10){
                    switch(opcion){
-                        case 1: System.out.print("Ingrese el numero de sectores que tendra el nuevo disco \n");
+                        case 1: System.out.print("Ingrese el número de sectores que tendra el nuevo disco \n");
                                 int numBloques = in.nextInt();
-                                disco.formatearDisco(numBloques);
-                                break;
+                                if(numBloques < 129 && numBloques > 14){
+                                    disco.formatearDisco(numBloques);
+                                    break;
+                                }
+                                else{
+                                    System.out.print("Ingrese un número de sectores que sea mayor a 14 y menor a 129 \n");
+                                    break;
+                                }
                         case 2: crearArchivo(directorio, disco, bloquesLibres);
                                 break;
-                        case 3: System.out.print("Ingrese el nombre del archivo que desea eliminar: \n");
-                                String nombreArchivo = in.nextLine();
-                                disco.eliminarArchivo(nombreArchivo);
-                                break;
+                        case 3: System.out.print("Ingrese el nombre del archivo que desea eliminar: ");
+                                Scanner nom = new Scanner(System.in);
+                                if(nom.hasNextLine()){
+                                    String nombreArchivo = nom.nextLine();                                    
+                                    disco.eliminarArchivo(nombreArchivo);
+                                    break;
+                                }
+                                else{
+                                    System.out.print("\nINGRESE UN NOMBRE VÁLIDO!!!\n");
+                                    break;
+                                }
+                                
                         case 4: fcb = abrirArchivo(directorio, fcb, disco);
                                 break;
                         case 5: System.out.print("Ingrese el numero de sectores que desea leer: \n");
@@ -111,13 +125,14 @@ public class Main {
         
         if(in.hasNextLine()){
             
-            if(fcb.getNombreArchivo() != null && fcb.getNombreArchivo().equals(in.nextLine())){
+            String nombre = in.nextLine();
+            
+            if(fcb.getNombreArchivo() != null && fcb.getNombreArchivo().equals(nombre)){
                 System.out.println("\nEl archivo está abierto."); 
                 return fcb;
             }else{
-                System.out.println("\nEl archivo no está abierto. Se buscará en el directorio");
-                //SE CAE AQUÍIIIIII
-                fcb = directorio.openFile(in.nextLine(), disco);
+                System.out.println("\nEl archivo no está abierto. Se buscará en el directorio");                
+                fcb = directorio.openFile(nombre, disco);
                 return fcb;
             }  
         }else{
@@ -145,52 +160,62 @@ public class Main {
         if(in.hasNextLine()){
             
             String nombre = in.nextLine();
-            Scanner on = new Scanner(System.in);        
-            System.out.print("Ingrese el tamaño del archivo en bytes: ");
+            
+            if(nombre.length()<9 && nombre.length()>0){
+                Scanner on = new Scanner(System.in);        
+                System.out.print("Ingrese el tamaño del archivo en bytes: ");
 
-            if(on.hasNextInt()){
+                if(on.hasNextInt()){
 
-                int size = on.nextInt();
-                int resto =(size%512);
-                int cantidadBloquesNecesarios = 0;
-                int contador = 1;
-                ArrayList<Integer> bloquesIndices = new ArrayList<Integer>();
-                if(resto == 0){
-                    cantidadBloquesNecesarios = ((size/512)+1);
-                }
-                else{
-                    cantidadBloquesNecesarios = ((size/512)+2);               
-                }
-                System.out.print("bloquesLibres: "+bloquesLibres);
-                String palabra = "[";
-                if(bloquesLibres > cantidadBloquesNecesarios){                    
-                    for (int a=0; a<disco.getBloque().size(); a++){
-                        if(!disco.getBloquePorIndice(a).isOcupado()){
-                            if(contador < cantidadBloquesNecesarios){
-                                int aux = a+1;
-                                System.out.print("a: "+ aux);
-                                bloquesIndices.add(a+1);
-                                palabra = palabra + aux + "->";
-                                disco.getBloquePorIndice(a).setOcupado(true);
-                                contador++;
-                            }
-                            else{
-                                disco.getBloquePorIndice(a).setIndice(bloquesIndices);
-                                disco.getBloquePorIndice(a).setOcupado(true);  
-                                disco.getBloquePorIndice(a).setPalabra(palabra+"-1]");
-                                directorio.agregarArchivo(nombre, a+1);
-                                disco.guardarDatos();
-                                break;
+                    int size = on.nextInt();
+                    int resto =(size%512);
+                    int cantidadBloquesNecesarios = 0;
+                    int contador = 1;
+                    ArrayList<Integer> bloquesIndices = new ArrayList<Integer>();
+                    if(resto == 0){
+                        cantidadBloquesNecesarios = ((size/512)+1);
+                    }
+                    else{
+                        cantidadBloquesNecesarios = ((size/512)+2);               
+                    }
+                    System.out.print("bloquesLibres: "+bloquesLibres);
+                    String palabra = "[";
+                    if(bloquesLibres > cantidadBloquesNecesarios){                    
+                        for (int a=0; a<disco.getBloque().size(); a++){
+                            if(!disco.getBloquePorIndice(a).isOcupado()){
+                                if(contador < cantidadBloquesNecesarios){
+                                    int aux = a+1;
+                                    System.out.print("a: "+ aux);
+                                    bloquesIndices.add(a+1);
+                                    palabra = palabra + aux + "->";
+                                    disco.getBloquePorIndice(a).setOcupado(true);
+                                    contador++;
+                                }
+                                else{
+                                    disco.getBloquePorIndice(a).setIndice(bloquesIndices);
+                                    disco.getBloquePorIndice(a).setOcupado(true);  
+                                    disco.getBloquePorIndice(a).setPalabra(palabra+"-1]");
+                                    directorio.agregarArchivo(nombre, a+1);
+                                    disco.guardarDatos();
+                                    break;
+                                }
                             }
                         }
                     }
-                }                      
-            }else{
-                System.out.println("\nINGRESE UN NÚMERO VÁLIDO!!!\n");
+                    else{
+                        System.out.println("\nNO HAY ESPACIO SUFICIENTE EN EL DISCO PARA ÉSTE ARCHIVO\n");
+                    }
+                }
+                else{
+                    System.out.println("\nINGRESE UN NÚMERO VÁLIDO!!!\n");
+                }
+            }  
+            else{
+                System.out.println("\nINGRESE UN NOMBRE DE MÁXIMO 8 CARACTERES Y MÍNIMO 1\n");
             }
-            
-        }else{
-            System.out.println("\nINGRESE UN NOMBRE VÁLIDO!!!\n");
+        }
+        else{
+            System.out.println("\nINGRESE UN NOMBRE VÁLIDO\n");
         }
     }
 }
