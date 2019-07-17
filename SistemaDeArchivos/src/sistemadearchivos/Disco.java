@@ -64,17 +64,20 @@ public class Disco {
                 else{
                     //Lee los datos de los sectores y los almacena en la lista de bloques
                     String linea = lector.nextLine();
-                    
+
                     if(linea.charAt(0) == '['){
                         this.leerBloqueIndice(i, linea);
                     }
                     else{
                         Bloque bloque = new Bloque(linea, i);
+                        bloque.setOcupado(false);
                         this.bloques.add(bloque);
                     }
                 }
             }                        
             lector.close();
+            
+            this.actualizarEstadoBloques();
         } 
         catch (FileNotFoundException e) 
         {
@@ -104,7 +107,23 @@ public class Disco {
         return num;
     }
     
+    void actualizarEstadoBloques(){
+        for(Bloque bloque: this.bloques){
+            if(bloque.indice.size() != 0){
+                for(Integer i : bloque.indice){
+                    if(i == -1){
+                        break;
+                    }
+                    else{
+                        this.bloques.get(i-1).setOcupado(true);
+                    }
+                }
+            }
+        }
+    }
+    
     void guardarDatos(){
+        System.out.println("num de bloques: "+ this.bloques.size());
         FileWriter fichero = null;
         PrintWriter pw = null;
         
@@ -119,7 +138,7 @@ public class Disco {
                     pw.println(this.guardarDirectorio());
                 }
                 else{
-                    pw.println(this.bloques.get(i).getPalabra()); 
+                    pw.println(this.bloques.get(i-1).getPalabra()); 
                 }              
             }
         } catch (Exception e) {
@@ -151,14 +170,14 @@ public class Disco {
             for(int i=0; i<this.numSectores; i++)
             {
                 if(i == 0){
-                    pw.println(this.guardarDirectorio());
+                    pw.println(" ");
                 }
                 else{
                     pw.println(" "); 
                 }              
             }
             this.directorio.eliminarDirectorio();
-            
+            this.bloques.clear();
             System.out.println("Se ha formateado el disco");
         } catch (Exception e) {
             e.printStackTrace();
@@ -171,6 +190,8 @@ public class Disco {
               e2.printStackTrace();
            }
         }
+        
+        this.leerDisco();
     }
     
     String guardarDirectorio(){
@@ -194,6 +215,9 @@ public class Disco {
             int index = Integer.parseInt(s);
             bloque.indice.add(index);
         }
+        
+        bloque.setOcupado(true);
+        this.bloques.add(bloque);
         
         System.out.println(bloque.indice.toString());
     }
