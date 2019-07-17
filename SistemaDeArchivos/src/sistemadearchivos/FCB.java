@@ -117,4 +117,13 @@ public class FCB {
             }            
         }        
     }
+    
+    public void imprimirEn(int posicion, String texto){
+        if(posicion < 512){
+            int aux_pos = this.listaBloques.get(0);
+        }
+        else{
+            
+        }
+    }
 }

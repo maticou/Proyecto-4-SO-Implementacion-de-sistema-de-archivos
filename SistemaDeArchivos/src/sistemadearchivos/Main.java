@@ -151,6 +151,9 @@ public class Main {
             if(on.hasNextInt()){
 
                 int size = on.nextInt();
+                int caract_totales = size;
+                //String contenido = "                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                ";
+                String contenido = "00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000";
                 int resto =(size%512);
                 int cantidadBloquesNecesarios = 0;
                 int contador = 1;
@@ -168,9 +171,19 @@ public class Main {
                         if(!disco.getBloquePorIndice(a).isOcupado()){
                             if(contador < cantidadBloquesNecesarios){
                                 int aux = a+1;
-                                System.out.print("a: "+ aux);
                                 bloquesIndices.add(a+1);
                                 palabra = palabra + aux + "->";
+                                
+                                if(caract_totales > 512){
+                                    disco.getBloquePorIndice(a).setPalabra(contenido);
+                                }
+                                else{
+                                    String aux_contenido = contenido.substring(0, caract_totales);
+                                    disco.getBloquePorIndice(a).setPalabra(aux_contenido);
+                                }
+                                
+                                caract_totales = obtenerCaracteres(caract_totales);
+                                
                                 disco.getBloquePorIndice(a).setOcupado(true);
                                 contador++;
                             }
@@ -192,5 +205,17 @@ public class Main {
         }else{
             System.out.println("\nINGRESE UN NOMBRE VÁLIDO!!!\n");
         }
+    }
+    
+    static int obtenerCaracteres(int caracteres){
+        int aux = 0;
+        
+        if(caracteres < 512){
+            aux = caracteres;
+        }
+        else{
+            aux = caracteres - 512;
+        }
+        return aux;
     }
 }
