@@ -74,7 +74,10 @@ public class Main {
                                 break;
                         case 4: fcb = abrirArchivo(directorio, fcb, disco);
                                 break;
-                        case 5: System.out.print("Entró a read at\n");
+                        case 5: System.out.print("Ingrese el numero de sectores que desea leer: \n");
+                                int indiceArrchivo = in.nextInt();
+                                fcb.setDisco(disco);
+                                fcb.imprimirContenidoArchivoHasta(indiceArrchivo);
                                 break;
                         case 6: System.out.print("Entró a write at\n");
                                 break;
@@ -114,7 +117,7 @@ public class Main {
                 return fcb;
             }else{
                 System.out.println("\nEl archivo no está abierto. Se buscará en el directorio");
-                
+                //SE CAE AQUÍIIIIII
                 fcb = directorio.openFile(in.nextLine(), disco);
                 return fcb;
             }  
