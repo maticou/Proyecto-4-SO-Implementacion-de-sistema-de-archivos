@@ -89,7 +89,6 @@ public class FCB {
                     break;
                 }
             }
-            System.out.println("\nOOOOOOOOOOOOOO " + this.getArchivoSize());
         }        
     }
     
