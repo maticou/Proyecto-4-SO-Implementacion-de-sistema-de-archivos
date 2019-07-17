@@ -92,8 +92,21 @@ public class Main {
                                 fcb.setDisco(disco);
                                 fcb.imprimirContenidoArchivoHasta(indiceArrchivo);
                                 break;
-                        case 6: System.out.print("Entró a write at\n");
-                                break;
+                        case 6: System.out.print("Ingrese la posicion en la que se insertará el texto: \n");
+                                int indice = in.nextInt();
+                                fcb.setDisco(disco);
+                                
+                                System.out.print("Ingrese el texto que se va a incertar: \n");
+                                Scanner nomnom = new Scanner(System.in);
+                                if(nomnom.hasNextLine()){
+                                    String texto = nomnom.nextLine();                                    
+                                    fcb.imprimirEn(indice, texto);
+                                    break;
+                                }
+                                else{
+                                    System.out.print("\nDebe ingresar un texto!!!\n");
+                                    break;
+                                }
                         case 7: fcb.setDisco(disco);
                                 fcb.imprimirContenidoArchivo();
                                 break;
