@@ -89,10 +89,11 @@ public class Directorio {
             System.out.println("El bloque índice es: " + bloqueIndice);
             System.out.println("");
             
-            this.bloque = disco.getBloquePorIndice(bloqueIndice);
+            this.bloque = disco.getBloquePorIndice(bloqueIndice-1);
             
             this.fcb = new FCB(tamanoArchivo(nombreArchivo, disco), this.bloque.getIndice(), nombreArchivo);//CAMBIAR EL 100 POR EL TAMAÑO REAL DEL ARCHIVO
             System.out.println("\nEl archivo fue abierto exitosamente. \n");
+            System.out.println("\nindex block: "+ this.bloque.getIndice().toString());
             return this.fcb;
         }  
     }
