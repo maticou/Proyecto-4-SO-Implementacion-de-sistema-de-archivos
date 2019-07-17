@@ -255,6 +255,10 @@ public class Disco {
         System.out.println(bloque.indice.toString());
     }
     
+    /**
+     * Método que elimina un archivo de la memoria, el directorio y finalmente del disco.
+     * @param nombre El nombre del archivo a borrar
+     */
     void eliminarArchivo(String nombre){
         int index = this.directorio.listaDirectorios.get(nombre);
         
