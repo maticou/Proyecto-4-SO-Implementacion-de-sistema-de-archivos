@@ -83,7 +83,7 @@ public class Main {
                         case 7: fcb.setDisco(disco);
                                 fcb.imprimirContenidoArchivo();
                                 break;
-                        case 8: directorio.imprimirListaDirectorios();
+                        case 8: directorio.imprimirListaDirectorios(disco);
                                 break;
                         case 9: exit(0);
                                 break;

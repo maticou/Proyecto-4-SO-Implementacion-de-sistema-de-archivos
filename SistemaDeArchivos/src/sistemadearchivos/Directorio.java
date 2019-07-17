@@ -5,6 +5,7 @@
  */
 package sistemadearchivos;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Scanner;
 
@@ -37,9 +38,10 @@ public class Directorio {
         }
     }
     
-    public void imprimirListaDirectorios(){
+    public void imprimirListaDirectorios(Disco disco){
         for (String i : this.listaDirectorios.keySet()) {
-            System.out.println("Nombre archivo: " + i + " Index Block: " + this.listaDirectorios.get(i));
+            System.out.println("Nombre archivo: " + i + " Index Block: " + this.listaDirectorios.get(i)
+            + " File size: " + tamanoArchivo(i, disco));
         }
     }
     
@@ -77,7 +79,7 @@ public class Directorio {
             
             this.bloque = disco.getBloquePorIndice(bloqueIndice);
             
-            this.fcb = new FCB(100, this.bloque.getIndice(), nombreArchivo);//CAMBIAR EL 100 POR EL TAMAÑO REAL DEL ARCHIVO
+            this.fcb = new FCB(tamanoArchivo(nombreArchivo, disco), this.bloque.getIndice(), nombreArchivo);//CAMBIAR EL 100 POR EL TAMAÑO REAL DEL ARCHIVO
             System.out.println("\nEl archivo fue abierto exitosamente. \n");
         }  
     }
@@ -88,4 +90,22 @@ public class Directorio {
         System.out.println("\nEl archivo fue creado exitosamente. \n");
     }
     
+    
+    public int tamanoArchivo(String nombre, Disco disco){
+        
+        int bloqueIndice = this.listaDirectorios.get(nombre);
+        int tamano = 0;
+        String contenido = "";
+        
+        ArrayList<Integer> listaIndex = disco.getBloquePorIndice(bloqueIndice).indice;
+        
+        for(int i=0; i<listaIndex.size(); i++){
+            int valorIndex = listaIndex.get(i);
+            contenido += disco.getBloquePorIndice(valorIndex).getPalabra();
+        }
+        
+        System.out.println("\nEl contenido del archivo es: "+contenido+"\n");
+        
+        return contenido.length();
+    }
 }
