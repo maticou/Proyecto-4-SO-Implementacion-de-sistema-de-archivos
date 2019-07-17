@@ -180,15 +180,13 @@ public class Main {
                     }
                     else{
                         cantidadBloquesNecesarios = ((size/512)+2);               
-                    }
-                    System.out.print("bloquesLibres: "+bloquesLibres);
+                    }                    
                     String palabra = "[";
                     if(bloquesLibres > cantidadBloquesNecesarios){                    
                         for (int a=0; a<disco.getBloque().size(); a++){
                             if(!disco.getBloquePorIndice(a).isOcupado()){
                                 if(contador < cantidadBloquesNecesarios){
-                                    int aux = a+1;
-                                    System.out.print("a: "+ aux);
+                                    int aux = a+1;                                    
                                     bloquesIndices.add(a+1);
                                     palabra = palabra + aux + "->";
                                     
