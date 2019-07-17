@@ -28,6 +28,7 @@ public class Bloque {
     public Bloque(String palabra, int identificador) {
         this.palabra = palabra;
         this.identificador = identificador;
+        this.indice = new ArrayList<Integer>();
     }
 
     public Bloque(String palabra, byte[] contenido, int identificador, ArrayList<Integer> indice) {

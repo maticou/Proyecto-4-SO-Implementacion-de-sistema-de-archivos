@@ -159,22 +159,23 @@ public class Main {
                     cantidadBloquesNecesarios = ((size/512)+2);               
                 }
                 System.out.print("bloquesLibres: "+bloquesLibres);
-                String palabra = "";
+                String palabra = "[";
                 if(bloquesLibres > cantidadBloquesNecesarios){                    
                     for (int a=0; a<disco.getBloque().size(); a++){
                         if(!disco.getBloquePorIndice(a).isOcupado()){
                             if(contador < cantidadBloquesNecesarios){
-                                System.out.print("a: "+a);
-                                bloquesIndices.add(a);
-                                palabra += a;
+                                int aux = a+1;
+                                System.out.print("a: "+ aux);
+                                bloquesIndices.add(a+1);
+                                palabra = palabra + aux + "->";
                                 disco.getBloquePorIndice(a).setOcupado(true);
                                 contador++;
                             }
                             else{
                                 disco.getBloquePorIndice(a).setIndice(bloquesIndices);
                                 disco.getBloquePorIndice(a).setOcupado(true);  
-                                disco.getBloquePorIndice(a).setPalabra(palabra);
-                                directorio.agregarArchivo(nombre, a);
+                                disco.getBloquePorIndice(a).setPalabra(palabra+"-1]");
+                                directorio.agregarArchivo(nombre, a+1);
                                 disco.guardarDatos();
                                 break;
                             }
