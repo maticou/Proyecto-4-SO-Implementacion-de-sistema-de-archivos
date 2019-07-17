@@ -146,19 +146,20 @@ public class FCB {
             contenido = contenido.substring(0, this.archivoSize);
             int inicio = 0;
             int fin = 512;
+            int tamano = this.archivoSize;
             String aux;
             
             for(Integer i: this.listaBloques){
                 if(i != -1){
-                    if(pos > 512){
+                    if(tamano > 512){
                         aux = contenido.substring(inicio, fin);
                         disco.getBloquePorIndice(i-1).setPalabra(aux);
+                        inicio = inicio + 512;
                         fin = fin + 512;
-                        inicio = fin;
-                        pos = pos-512;
+                        tamano = tamano - 512;
                     }
                     else{
-                        aux = contenido.substring(inicio, contenido.length());
+                        aux = contenido.substring(inicio, this.archivoSize);
                         disco.getBloquePorIndice(i-1).setPalabra(aux);
                         break;
                     }
