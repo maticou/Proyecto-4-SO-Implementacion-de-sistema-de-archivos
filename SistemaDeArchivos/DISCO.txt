@@ -1,7 +1,25 @@
-jojojo-3/no-2/gato-1/io-7/ho-3/sapeh-3/iii-9/hola-3/keonda-2/bhguy-3/uyt-5/son-4/﻿archivo-10/archivo2-20/lost-2/opop-2/hijo-4/chao-2/qwe-6/
+archivo-4/2560-10/
  
  
-0123
-0123
  
-8
+[1->2->3->-1]
+ 
+ 
+ 
+ 
+ 
+[5->6->7->8->9->-1]
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
