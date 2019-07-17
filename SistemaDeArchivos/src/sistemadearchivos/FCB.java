@@ -119,11 +119,55 @@ public class FCB {
     }
     
     public void imprimirEn(int posicion, String texto){
-        if(posicion < 512){
-            int aux_pos = this.listaBloques.get(0);
+        int pos = posicion;
+        String contenido = "";
+        
+        if(posicion > this.archivoSize){
+            System.out.println("El indice no se encuentra dentro del archivo");
         }
         else{
+            for(Integer i: this.listaBloques){
+                if(i != -1){
+                    contenido = contenido + disco.getBloquePorIndice(i-1).getPalabra();
+                }
+                else{
+                    break;
+                }
+            }
             
+            String string1 = contenido.substring(0, posicion);
+            String string2 = contenido.substring(posicion, contenido.length());
+            
+            contenido = "";
+            contenido = contenido + string1;
+            contenido = contenido +texto;
+            contenido = contenido +string2;
+            
+            contenido = contenido.substring(0, this.archivoSize);
+            int inicio = 0;
+            int fin = 512;
+            String aux;
+            
+            for(Integer i: this.listaBloques){
+                if(i != -1){
+                    if(pos > 512){
+                        aux = contenido.substring(inicio, fin);
+                        disco.getBloquePorIndice(i-1).setPalabra(aux);
+                        fin = fin + 512;
+                        inicio = fin;
+                        pos = pos-512;
+                    }
+                    else{
+                        aux = contenido.substring(inicio, contenido.length());
+                        disco.getBloquePorIndice(i-1).setPalabra(aux);
+                        break;
+                    }
+                }
+                else{
+                    break;
+                }
+            }
+            this.disco.guardarDatos();
         }
     }
 }
