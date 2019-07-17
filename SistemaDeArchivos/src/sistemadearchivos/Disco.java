@@ -19,7 +19,8 @@ import java.io.RandomAccessFile;
 import java.util.ArrayList;
 
 /**
- *
+ *Clase Disco, es la encargada de representar un volumen en un disco duro.
+ * 
  * @author MatiasParra
  * @author ManuelGonzalez
  */
@@ -42,6 +43,10 @@ public class Disco {
         this.archivoDeDisco = new File("DISCO.txt");
     }
     
+    /**
+     * Método encargado de leer el disco (que en nuestro caso es un archivo .txt) 
+     * y cargarlo al sistema.
+     */
     void leerDisco(){
         this.numSectores = this.obtenerNumeroBloques();
         Scanner lector;
@@ -85,6 +90,12 @@ public class Disco {
         }
     }
     
+    /**
+     * Cuenta los bloques que hay en el disco para saber cuantas veces 
+     * tiene que iterar al crear los bloques al momento de cargar el disco.
+     * 
+     * @return Un entero con la cantidad de bloques.
+     */
     int obtenerNumeroBloques(){
         int num = 0;
         Scanner lector;
@@ -107,6 +118,9 @@ public class Disco {
         return num;
     }
     
+    /**
+     * Método que verifica los bloques ocupados en disco y los modifica a ocupados en memoria.
+     */
     void actualizarEstadoBloques(){
         for(Bloque bloque: this.bloques){
             if(bloque.indice.size() != 0){
@@ -122,6 +136,9 @@ public class Disco {
         }
     }
     
+    /**
+     * Se encarga de guardar los datos y cambios hechos al disco en memoria al disco.
+     */
     void guardarDatos(){
         System.out.println("num de bloques: "+ this.bloques.size());
         FileWriter fichero = null;
@@ -153,10 +170,22 @@ public class Disco {
         }
     }
     
+    /**
+     * Obtiene el bloque especificado por un índice.
+     * 
+     * @param bloqueIndice Es el índice del bloque que quiero obtener.
+     * @return Un bloque con todos los datos que incluye.
+     */
     public Bloque getBloquePorIndice(int bloqueIndice) {
         return bloques.get(bloqueIndice);
     }
     
+    /**
+     * Sobre escribe en el disco con espacios en blanco, dejándolo limpio y listo 
+     * para ser creado nuevamente con nuevas características.
+     * 
+     * @param numBloques Cantidad de bloques que se quiere tener en el nuevo disco.
+     */
     void formatearDisco(int numBloques){
         this.numSectores = numBloques;
         FileWriter fichero = null;
@@ -194,6 +223,10 @@ public class Disco {
         this.leerDisco();
     }
     
+    /**
+     * Guarda el directorio en el disco, bloque 0.
+     * @return el nuevo directorio.
+     */
     String guardarDirectorio(){
         String directorio = "";
         
@@ -203,6 +236,12 @@ public class Disco {
         return directorio;
     }
     
+    /**
+     * Lee el bloque que está en el índice dado en el disco.
+     * 
+     * @param idBloque El identificador de un bloque
+     * @param indice La posición del bloque en el disco.
+     */
     void leerBloqueIndice(int idBloque, String indice){
         Bloque bloque = new Bloque();
         bloque.setPalabra(indice);

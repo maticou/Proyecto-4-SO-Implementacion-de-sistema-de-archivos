@@ -8,7 +8,8 @@ package sistemadearchivos;
 import java.util.ArrayList;
 
 /**
- *
+ *Clase bloque o sector de un volumen en el disco, es la encargada de almacenar los datos 
+ * de un archivo y los índices.
  * @author MatiasParra
  * @author ManuelGonzalez
  */
