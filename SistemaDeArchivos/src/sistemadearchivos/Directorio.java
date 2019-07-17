@@ -5,9 +5,7 @@
  */
 package sistemadearchivos;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Scanner;
 
 /**
  *Clase directorio es la encargada de almacenar todos los nombres de los archivos en el disco 

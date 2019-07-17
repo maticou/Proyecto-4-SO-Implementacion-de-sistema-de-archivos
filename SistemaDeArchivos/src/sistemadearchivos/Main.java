@@ -5,9 +5,6 @@
  */
 package sistemadearchivos;
 
-import static java.lang.Math.abs;
-import static java.lang.Math.ceil;
-import static java.lang.Math.round;
 import static java.lang.System.exit;
 import java.util.ArrayList;
 import java.util.Scanner;
