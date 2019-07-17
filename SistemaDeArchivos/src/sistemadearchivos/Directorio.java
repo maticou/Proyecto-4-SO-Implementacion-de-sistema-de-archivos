@@ -10,7 +10,9 @@ import java.util.HashMap;
 import java.util.Scanner;
 
 /**
- *
+ *Clase directorio es la encargada de almacenar todos los nombres de los archivos en el disco 
+ * y su bloque índice en un tipo de asignación indexada de disco.
+ * 
  * @author MatiasParra
  * @author ManuelGonzalez
  */
@@ -24,6 +26,10 @@ public class Directorio {
         this.listaDirectorios = new HashMap<String, Integer>();
     }
     
+    /**
+     * Agrega el directorio al disco y lo carga a la memoria.
+     * @param directorio String con los datos del directorio
+     */
     void agregarDirectorioDisco(String directorio){
         String [] array = directorio.split("-");
         
@@ -38,6 +44,11 @@ public class Directorio {
         }
     }
     
+    /**
+     * Muestra por consola el nombre del archivo, el índice "padre" y su tamaño en bytes 
+     * de todos los archivos en el directorio.
+     * @param disco Requiere el disco cargado en memoria
+     */
     public void imprimirListaDirectorios(Disco disco){
         for (String i : this.listaDirectorios.keySet()) {
             System.out.println("Nombre archivo: " + i + " Index Block: " + this.listaDirectorios.get(i)
@@ -65,10 +76,11 @@ public class Directorio {
      * 
      * @param nombreArchivo String que almacena el nombre del archivo a buscar y abrir.
      */
-    public void openFile(String nombreArchivo, Disco disco) {
+    public FCB openFile(String nombreArchivo, Disco disco) {
 
         if(this.listaDirectorios.get(nombreArchivo) == null){
             System.out.println("\nEL ARCHIVO NO EXISTE O SU NOMBRE FUE ESCRITO INCORRECTAMENTE. \n");
+            return new FCB();
         }else{
             System.out.println("\nEl archivo fue encontrado, ahora se abrirá en el FCB. \n");
             
@@ -81,16 +93,26 @@ public class Directorio {
             
             this.fcb = new FCB(tamanoArchivo(nombreArchivo, disco), this.bloque.getIndice(), nombreArchivo);//CAMBIAR EL 100 POR EL TAMAÑO REAL DEL ARCHIVO
             System.out.println("\nEl archivo fue abierto exitosamente. \n");
+            return this.fcb;
         }  
     }
     
-    
+    /**
+     * Agrega un nuevo archivo en la lista de directorios.
+     * @param nombre El nombre del nuevo archivo
+     * @param indice El índice del archivo en la lista de directorios.
+     */
     public void agregarArchivo(String nombre, int indice){
         this.listaDirectorios.put(nombre, indice);
         System.out.println("\nEl archivo fue creado exitosamente. \n");
     }
     
-    
+    /**
+     * Calcula el tamaño del archivo en bytes.
+     * @param nombre El nombre del archivo al que se le calculará el tamaño
+     * @param disco El disco cargado en memoria
+     * @return Un entero que representa el tamaño en bytes del archivo
+     */
     public int tamanoArchivo(String nombre, Disco disco){
         
         int bloqueIndice = this.listaDirectorios.get(nombre);

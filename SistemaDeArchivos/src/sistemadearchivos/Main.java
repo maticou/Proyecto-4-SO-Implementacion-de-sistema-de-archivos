@@ -42,9 +42,7 @@ public class Main {
                 bloquesLibres++;
             }
         }
-        
-        
-        
+
         while(true){
             
             Scanner in = new Scanner(System.in);        
@@ -74,7 +72,7 @@ public class Main {
                                 break;
                         case 3: System.out.print("Entró a remove\n");
                                 break;
-                        case 4: abrirArchivo(directorio, fcb, disco);
+                        case 4: fcb = abrirArchivo(directorio, fcb, disco);
                                 break;
                         case 5: System.out.print("Entró a read at\n");
                                 break;
@@ -105,21 +103,24 @@ public class Main {
      * no lo está, entonces va al directorio y lo abre a través de la función openFile.
      *     
      */
-    static public void abrirArchivo(Directorio directorio, FCB fcb, Disco disco) {
+    static public FCB abrirArchivo(Directorio directorio, FCB fcb, Disco disco) {
         Scanner in = new Scanner(System.in);        
         System.out.print("Ingrese el nombre del archivo que quiere abrir: ");
         
         if(in.hasNextLine()){
             
             if(fcb.getNombreArchivo() != null && fcb.getNombreArchivo().equals(in.nextLine())){
-                System.out.println("\nEl archivo está abierto.");  
+                System.out.println("\nEl archivo está abierto."); 
+                return fcb;
             }else{
                 System.out.println("\nEl archivo no está abierto. Se buscará en el directorio");
                 
-                directorio.openFile(in.nextLine(), disco);
+                fcb = directorio.openFile(in.nextLine(), disco);
+                return fcb;
             }  
         }else{
             System.out.println("\nINGRESE UN NOMBRE VÁLIDO!!!\n");
+            return new FCB();
         }
     }
     
