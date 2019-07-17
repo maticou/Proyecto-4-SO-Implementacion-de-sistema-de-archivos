@@ -81,8 +81,13 @@ public class FCB {
             System.out.println("\nEl contenido del archivo " + this.getNombreArchivo() + " es:  \n");
         
             for(int i=0; i<this.listaBloques.size(); i++){
-                this.bloque = this.disco.getBloquePorIndice(this.listaBloques.get(i));
-                System.out.println(this.disco.getBloquePorIndice(this.listaBloques.get(i)).getPalabra() + "\n");
+                if(this.listaBloques.get(i) != -1){
+                    this.bloque = this.disco.getBloquePorIndice(this.listaBloques.get(i)-1);
+                    System.out.println(this.disco.getBloquePorIndice(this.listaBloques.get(i)-1).getPalabra() + "\n");
+                }
+                else{
+                    break;
+                }
             }
         }        
     }
