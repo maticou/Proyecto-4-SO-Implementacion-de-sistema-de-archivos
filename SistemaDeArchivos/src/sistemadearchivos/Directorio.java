@@ -77,7 +77,7 @@ public class Directorio {
      * @param nombreArchivo String que almacena el nombre del archivo a buscar y abrir.
      */
     public FCB openFile(String nombreArchivo, Disco disco) {
-        System.out.println("\nthis.listaDirectorios.get(nombreArchivo) "+this.listaDirectorios.get(nombreArchivo));
+        
         if(this.listaDirectorios.get(nombreArchivo) == null){
             System.out.println("\nEL ARCHIVO NO EXISTE O SU NOMBRE FUE ESCRITO INCORRECTAMENTE. \n");
             return new FCB();
@@ -89,8 +89,8 @@ public class Directorio {
             System.out.println("El bloque índice es: " + bloqueIndice);
             
             this.bloque = disco.getBloquePorIndice(bloqueIndice-1);
-            
-            this.fcb = new FCB(tamanoArchivo(nombreArchivo, disco), this.bloque.getIndice(), nombreArchivo);
+            int sizeFile = tamanoArchivo(nombreArchivo, disco);
+            this.fcb = new FCB(sizeFile, this.bloque.getIndice(), nombreArchivo);
             
             System.out.println("\nEl archivo fue abierto exitosamente. \n");
             System.out.println("\nindex block: "+ this.bloque.getIndice().toString());
@@ -117,18 +117,12 @@ public class Directorio {
     public int tamanoArchivo(String nombre, Disco disco){
         
         int bloqueIndice = this.listaDirectorios.get(nombre);
-        int tamano = 0;
         String contenido = "";
         
-        ArrayList<Integer> listaIndex = disco.getBloquePorIndice(bloqueIndice).indice;
-        
-        for(int i=0; i<listaIndex.size(); i++){
-            int valorIndex = listaIndex.get(i);
-            contenido += disco.getBloquePorIndice(valorIndex).getPalabra();
-        }
-        
-        System.out.println("\nEl contenido del archivo es: "+contenido+"\n");
-        
+        for(int i=0; i<disco.getBloquePorIndice(bloqueIndice-1).getIndice().size()-1; i++){            
+            int valorIndex = (disco.getBloquePorIndice(bloqueIndice-1).getIndice().get(i));
+            contenido += disco.getBloquePorIndice(valorIndex-1).getPalabra();            
+        }        
         return contenido.length();
     }
 }

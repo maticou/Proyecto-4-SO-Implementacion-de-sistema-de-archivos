@@ -89,6 +89,7 @@ public class FCB {
                     break;
                 }
             }
+            System.out.println("\nOOOOOOOOOOOOOO " + this.getArchivoSize());
         }        
     }
     
@@ -108,8 +109,8 @@ public class FCB {
                 System.out.println("\nEl contenido del archivo " + this.getNombreArchivo() + " es:  \n");
             
                 for(int i=0; i<posicion; i++){
-                    this.bloque = this.disco.getBloquePorIndice(this.listaBloques.get(i));
-                    System.out.println(this.disco.getBloquePorIndice(this.listaBloques.get(i)).getPalabra() + "\n");
+                    this.bloque = this.disco.getBloquePorIndice(this.listaBloques.get(i)-1);
+                    System.out.println(this.disco.getBloquePorIndice(this.listaBloques.get(i)-1).getPalabra() + "\n");
                 }
             }
             else{
